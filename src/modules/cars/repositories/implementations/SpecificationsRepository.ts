@@ -1,8 +1,5 @@
 import { Specification } from '../../model/Specification';
-import {
-  ICreateSpecification,
-  ISpecificationsRepository,
-} from '../ISpecificationsRepository';
+import { ICreateSpecification, ISpecificationsRepository } from '../ISpecificationsRepository';
 
 export class SpecificationsRepository implements ISpecificationsRepository {
   private specifications: Specification[];
@@ -30,9 +27,7 @@ export class SpecificationsRepository implements ISpecificationsRepository {
   }
 
   findByName(name: string): Specification {
-    return this.specifications.find(
-      (specification) => specification.name === name
-    );
+    return this.specifications.find((specification) => specification.name === name);
   }
 
   list(): Specification[] {
