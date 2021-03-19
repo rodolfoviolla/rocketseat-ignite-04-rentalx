@@ -8,4 +8,5 @@ export interface ICreateSpecification {
 export interface ISpecificationsRepository {
   create(data: ICreateSpecification): Specification;
   findByName(name: string): Specification;
+  list(): Specification[];
 }
