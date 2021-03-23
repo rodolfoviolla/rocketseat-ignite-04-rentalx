@@ -1,7 +1,7 @@
 import csvParse from 'csv-parse';
 import fs from 'fs';
 
-import { Category } from '../../model/Category';
+import { Category } from '../../entities/Category';
 import { CategoriesRepository } from '../../repositories/implementations/CategoriesRepository';
 
 interface IImportCategory {
@@ -32,15 +32,17 @@ export class ImportCategoriesUseCase {
     const importedCategories = await this.loadCategories(file);
     const createdCategories: Category[] = [];
 
-    importedCategories.forEach(({ name, description }) => {
-      const categoryExists = this.categoriesRepository.findByName(name);
+    await Promise.all(
+      importedCategories.map(async ({ name, description }) => {
+        const categoryExists = await this.categoriesRepository.findByName(name);
 
-      if (!categoryExists) {
-        const category = this.categoriesRepository.create({ name, description });
+        if (!categoryExists) {
+          const category = await this.categoriesRepository.create({ name, description });
 
-        createdCategories.push(category);
-      }
-    });
+          createdCategories.push(category);
+        }
+      })
+    );
 
     return createdCategories;
   }
