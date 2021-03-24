@@ -22,6 +22,5 @@ export class Category {
 
   constructor() {
     this.id = uuidV4();
-    this.created_at = new Date();
   }
 }
