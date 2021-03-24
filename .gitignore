@@ -4,3 +4,4 @@ dist
 tmp/*
 categories.csv
 yarn-error.log
+.env

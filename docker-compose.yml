@@ -11,6 +11,8 @@ services:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=ignite
       - POSTGRES_DB=rentalx
+    env_file: 
+      - .env
     volumes:
       - pgdata:/data/postgres
     network_mode: host
