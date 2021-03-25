@@ -16,16 +16,18 @@ export async function ensureAuthenticated(request: Request, response: Response, 
   const [, token] = authHeader.split(' ');
 
   try {
-    const { sub: userId } = verify(token, process.env.APP_SECRET) as IPayload;
+    const { sub: user_id } = verify(token, process.env.APP_SECRET) as IPayload;
 
     const usersRepository = new UsersRepository();
 
-    const user = await usersRepository.findById(userId);
+    const user = await usersRepository.findById(user_id);
 
-    if (!user) throw new AppError('User not exists', 401);
+    if (!user) throw new AppError('User does not exists', 401);
+
+    request.user = { id: user_id, avatar: user.avatar };
 
     return next();
-  } catch {
+  } catch (err) {
     throw new AppError('Invalid token', 401);
   }
 }

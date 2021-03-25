@@ -2,6 +2,8 @@ node_modules
 .vscode
 dist
 tmp/*
+!tmp/avatar
+tmp/avatar/*
 categories.csv
 yarn-error.log
 .env
