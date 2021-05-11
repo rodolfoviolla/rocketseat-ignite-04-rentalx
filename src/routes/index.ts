@@ -7,6 +7,8 @@ import { usersRoutes } from './users.routes';
 
 const router = Router();
 
+router.get('/', (request, response) => response.json({ now: new Date(Date.now()).toISOString() }));
+
 router.use('/categories', categoriesRoutes);
 router.use('/specifications', specificationsRoutes);
 router.use('/users', usersRoutes);
